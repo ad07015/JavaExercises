@@ -1,17 +1,13 @@
 package com.example.javaexercises.codingbat;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
 import java.util.stream.Stream;
 
-import static org.hamcrest.Matchers.in;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 class Recursion1Test {
 
@@ -51,6 +47,12 @@ class Recursion1Test {
     @MethodSource("strCopiesArguments")
     void strCopies(String input, String sub, int n, boolean expected) {
         assertThat(rec1.strCopies(input, sub, n), equalTo(expected));
+    }
+
+    @ParameterizedTest
+    @MethodSource("strDistArguments")
+    void strDist(String input, String sub, int expected) {
+        assertThat(rec1.strDist(input, sub), equalTo(expected));
     }
 
     public static Stream<Arguments> count8Arguments() {
@@ -99,6 +101,15 @@ class Recursion1Test {
                 Arguments.of("popop", "pop", 2, true),
                 Arguments.of("popop", "pop", 1, true),
                 Arguments.of("popop", "pop", 3, false)
+        );
+    }
+
+    public static Stream<Arguments> strDistArguments() {
+        return Stream.of(
+                Arguments.of("catcowcat", "cat", 9),
+                Arguments.of("catcowcat", "cow", 3),
+                Arguments.of("cccatcowcatxx", "cat", 9),
+                Arguments.of("", "cat", 0)
         );
     }
 }
